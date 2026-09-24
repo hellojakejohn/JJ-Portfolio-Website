@@ -35,7 +35,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { name, email, subject, message } = req.body || {};
+    const raw = req.body || {};
+    const name = String(raw.name || '').slice(0, 200);
+    const email = String(raw.email || '').slice(0, 320);
+    const subject = String(raw.subject || '').slice(0, 200);
+    const message = String(raw.message || '').slice(0, 5000);
+    // Escape user input before it goes into the HTML email
+    const esc = (s: string) =>
+      s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -75,7 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         from: `Portfolio Contact <${process.env.FROM_EMAIL || 'onboarding@resend.dev'}>`,
         to: [process.env.RECIPIENT_EMAIL || 'hellojakejohn@gmail.com'],
         reply_to: email,
-        subject: `Portfolio Contact: ${subject || 'No Subject'}`,
+        subject: `hellojakejohn.com: ${subject || `message from ${name}`}`,
         html: `
           <!DOCTYPE html>
           <html>
@@ -98,7 +105,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
                 }
                 .header {
-                  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                  background: #24452F;
                   color: white;
                   padding: 30px;
                   text-align: center;
@@ -132,7 +139,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                   background: #f8f9fa;
                   padding: 20px;
                   border-radius: 5px;
-                  border-left: 4px solid #667eea;
+                  border-left: 4px solid #C08A26;
                   margin-top: 20px;
                 }
                 .footer {
@@ -147,31 +154,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             <body>
               <div class="container">
                 <div class="header">
-                  <h1>📬 New Contact Form Submission</h1>
+                  <h1>New message from hellojakejohn.com</h1>
                 </div>
                 <div class="content">
                   <div class="field">
                     <div class="label">Name</div>
-                    <div class="value">${name}</div>
+                    <div class="value">${esc(name)}</div>
                   </div>
                   <div class="field">
                     <div class="label">Email</div>
-                    <div class="value"><a href="mailto:${email}" style="color: #667eea;">${email}</a></div>
+                    <div class="value"><a href="mailto:${esc(email)}" style="color: #24452F;">${esc(email)}</a></div>
                   </div>
                   ${subject ? `
                   <div class="field">
                     <div class="label">Subject</div>
-                    <div class="value">${subject}</div>
+                    <div class="value">${esc(subject)}</div>
                   </div>
                   ` : ''}
                   <div class="message-box">
                     <div class="label" style="margin-bottom: 10px;">Message</div>
-                    <div class="value" style="white-space: pre-wrap;">${message.replace(/\n/g, '<br>')}</div>
+                    <div class="value" style="white-space: pre-wrap;">${esc(message).replace(/\n/g, '<br>')}</div>
                   </div>
                 </div>
                 <div class="footer">
                   Sent from hellojakejohn.com at ${new Date().toLocaleString('en-US', {
-                    timeZone: 'America/Los_Angeles',
+                    timeZone: 'America/Chicago',
                     dateStyle: 'full',
                     timeStyle: 'short'
                   })}

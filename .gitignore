@@ -1,11 +1,9 @@
 node_modules
-client/node_modules/
-server/node_modules/
 dist
 .DS_Store
-server/public
-vite.config.ts.*
 *.tar.gz
-.env              # <-- Add this line - makes sure your password isnt on public github.
-.env.local        # <-- Optional but recommended
-.env.*            # <-- Optional catch-all for other env variants
+.vercel
+# env files: never commit real values (.env.example is the template)
+.env
+.env.*
+!.env.example
