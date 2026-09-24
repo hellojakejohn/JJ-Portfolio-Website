@@ -145,11 +145,13 @@ export const projects: Project[] = [
   },
 ]
 
-export const credentials = [
+export const credentials: { title: string; issuer: string; date: string; url?: string }[] = [
   { title: 'Certified Solidity Developer', issuer: 'Metana', date: 'May 2026' },
   { title: 'Full-Stack Web Development Bootcamp', issuer: 'Metana', date: 'Jul 2025' },
-  { title: 'Claude 101 · Claude Code 101', issuer: 'Anthropic Academy', date: '2026' },
-  { title: 'JavaScript Algorithms and Data Structures · Responsive Web Design', issuer: 'freeCodeCamp', date: '' },
+  { title: 'Claude Code 101', issuer: 'Anthropic Academy', date: '2026', url: 'https://academy.claude.com/verify/6c35faf928e4ad2e1d514db70c49ba84' },
+  { title: 'Claude 101', issuer: 'Anthropic Academy', date: '2026', url: 'https://academy.claude.com/verify/44e47da1be4ad61ba0da75a4deaa6aca' },
+  { title: 'JavaScript Algorithms and Data Structures', issuer: 'freeCodeCamp', date: '', url: 'https://www.freecodecamp.org/certification/jakejohndoe/javascript-algorithms-and-data-structures-v8' },
+  { title: 'Responsive Web Design', issuer: 'freeCodeCamp', date: '', url: 'https://www.freecodecamp.org/certification/jakejohndoe/responsive-web-design' },
 ]
 
 export const stack = [

@@ -1,6 +1,7 @@
 import { useEffect, useState, type MouseEvent, type ReactNode } from 'react'
 import { Link, useLocation } from 'wouter'
 import { socials } from '../data/site'
+import SocialIcon from './SocialIcon'
 
 type Theme = 'dark' | 'light'
 
@@ -66,8 +67,6 @@ export function Hand({ className = '' }: { className?: string }) {
   return <img src="/img/hand.png" alt="" className={`hand ${className}`} width={157} height={203} />
 }
 
-const shortLabel: Record<string, string> = { x: 'X', youtube: 'YT', linkedin: 'in', github: 'GH' }
-
 export function Nav() {
   return (
     <header className="nav">
@@ -87,8 +86,8 @@ export function Nav() {
           <Link href="/resume">Resume</Link>
           <span className="nav-socials">
             {socials.map((s) => (
-              <a key={s.id} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}>
-                {shortLabel[s.id]}
+              <a key={s.id} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label} title={s.label}>
+                <SocialIcon id={s.id} />
               </a>
             ))}
           </span>
@@ -105,7 +104,7 @@ export function SocialPills() {
       {socials.map((s) => (
         <li key={s.id}>
           <a href={s.href} target="_blank" rel="noreferrer">
-            <span className="sp-label">{s.label}</span> {s.handle}
+            <SocialIcon id={s.id} size={15} /> {s.handle}
           </a>
         </li>
       ))}
@@ -120,8 +119,8 @@ export function Footer() {
         <div className="tagline">TAKING THINGS APART</div>
         <div className="footer-links">
           {socials.map((s) => (
-            <a key={s.id} href={s.href} target="_blank" rel="noreferrer">
-              {s.label}
+            <a key={s.id} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label} title={s.label}>
+              <SocialIcon id={s.id} size={20} />
             </a>
           ))}
         </div>

@@ -116,7 +116,13 @@ function About() {
         <ul className="creds">
           {credentials.map((c) => (
             <li key={c.title}>
-              <span className="cred-title">{c.title}</span>
+              {c.url ? (
+                <a className="cred-title" href={c.url} target="_blank" rel="noreferrer">
+                  {c.title} ↗
+                </a>
+              ) : (
+                <span className="cred-title">{c.title}</span>
+              )}
               <span className="cred-meta">
                 {c.issuer}
                 {c.date ? ` · ${c.date}` : ''}
