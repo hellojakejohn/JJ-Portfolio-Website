@@ -69,9 +69,16 @@ export function FeatureCard({ project }: { project: Project }) {
         <p>
           {project.oneLiner} I've built the mobile app, the onchain program and the backend since the first commit.
         </p>
-        <Link href={`/work/${project.slug}`} className="feature-link">
-          Read the case study →
-        </Link>
+        <div className="feature-links">
+          <Link href={`/work/${project.slug}`} className="feature-link">
+            Read the case study →
+          </Link>
+          {project.live ? (
+            <a href={project.live.href} target="_blank" rel="noreferrer" className="feature-link">
+              {project.live.label} ↗
+            </a>
+          ) : null}
+        </div>
       </div>
       <div className="feature-side">
         <Link href={`/work/${project.slug}`} className="card-media feature-media" aria-label={`${project.name} case study`}>

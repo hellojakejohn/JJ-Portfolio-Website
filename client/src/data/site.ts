@@ -42,6 +42,7 @@ export const projects: Project[] = [
     when: 'Mar 2026 to now',
     oneLiner: 'AI-generated travel quests with Solana rewards.',
     image: '/img/tripquest.jpg',
+    live: { label: 'tripquest.ai', href: 'https://tripquest.ai' },
     parts: [
       { label: 'mobile', value: 'React Native + Expo' },
       { label: 'onchain', value: 'Solana + Anchor (Rust)' },
